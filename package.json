@@ -1,0 +1,51 @@
+{
+  "name": "@flyinghouse-ma/dsh-pet-android",
+  "version": "0.4.0",
+  "description": "安卓悬浮窗桌宠的社区补丁版：修复壳里输入框无法输入、聊天发不出去、回复看不见三个问题",
+  "type": "module",
+  "main": "src/index.js",
+  "exports": {
+    ".": "./src/index.js",
+    "./cordis.patch.yml": "./cordis.patch.yml",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "src",
+    "cordis.patch.yml",
+    "scripts/pet-proxy.mjs",
+    "README.md",
+    "INSTALL.md",
+    "CHANGELOG.md",
+    "LICENSE"
+  ],
+  "keywords": [
+    "dsh",
+    "dsh-plugin",
+    "deepseek-harness",
+    "android",
+    "desktop-pet",
+    "overlay",
+    "cordis",
+    "dsh-pet"
+  ],
+  "license": "MIT",
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    }
+  },
+  "peerDependencies": {
+    "dsh-pet": ">=0.3.7"
+  },
+  "peerDependenciesMeta": {
+    "dsh-pet": {
+      "optional": true
+    }
+  },
+  "scripts": {
+    "check": "node --check src/index.js"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

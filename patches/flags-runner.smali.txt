@@ -1,0 +1,95 @@
+.class Lcom/dsh/petframe/OverlayService$PetHost$Flags;
+.super Ljava/lang/Object;
+.source "OverlayService.java"
+
+# interfaces
+.implements Ljava/lang/Runnable;
+
+
+# annotations
+.annotation system Ldalvik/annotation/EnclosingClass;
+    value = Lcom/dsh/petframe/OverlayService$PetHost;
+.end annotation
+
+.annotation system Ldalvik/annotation/InnerClass;
+    accessFlags = 0x2
+    name = "Flags"
+.end annotation
+
+
+# instance fields
+.field private final on:Z
+
+.field private final svc:Lcom/dsh/petframe/OverlayService;
+
+
+# direct methods
+.method public constructor <init>(Lcom/dsh/petframe/OverlayService;Z)V
+    .registers 3
+
+    invoke-direct {p0}, Ljava/lang/Object;-><init>()V
+
+    iput-object p1, p0, Lcom/dsh/petframe/OverlayService$PetHost$Flags;->svc:Lcom/dsh/petframe/OverlayService;
+
+    iput-boolean p2, p0, Lcom/dsh/petframe/OverlayService$PetHost$Flags;->on:Z
+
+    return-void
+.end method
+
+
+# virtual methods
+.method public run()V
+    .registers 4
+
+    iget-object v0, p0, Lcom/dsh/petframe/OverlayService$PetHost$Flags;->svc:Lcom/dsh/petframe/OverlayService;
+
+    invoke-static {v0}, Lcom/dsh/petframe/OverlayService;->access$1400(Lcom/dsh/petframe/OverlayService;)Landroid/view/WindowManager$LayoutParams;
+
+    move-result-object v0
+
+    if-eqz v0, :end
+
+    iget-boolean v1, p0, Lcom/dsh/petframe/OverlayService$PetHost$Flags;->on:Z
+
+    if-eqz v1, :restore
+
+    # 可交互模式：去掉 FLAG_NOT_FOCUSABLE(0x8)，补 FLAG_NOT_TOUCH_MODAL(0x20)
+    const/16 v1, 0x220
+
+    iput v1, v0, Landroid/view/WindowManager$LayoutParams;->flags:I
+
+    # SOFT_INPUT_ADJUST_RESIZE
+    const/16 v1, 0x10
+
+    iput v1, v0, Landroid/view/WindowManager$LayoutParams;->softInputMode:I
+
+    goto :apply
+
+    :restore
+    # 恢复原样：LAYOUT_NO_LIMITS | NOT_FOCUSABLE
+    const/16 v1, 0x208
+
+    iput v1, v0, Landroid/view/WindowManager$LayoutParams;->flags:I
+
+    :apply
+    iget-object v1, p0, Lcom/dsh/petframe/OverlayService$PetHost$Flags;->svc:Lcom/dsh/petframe/OverlayService;
+
+    invoke-static {v1}, Lcom/dsh/petframe/OverlayService;->access$1500(Lcom/dsh/petframe/OverlayService;)Landroid/view/WindowManager;
+
+    move-result-object v1
+
+    iget-object v2, p0, Lcom/dsh/petframe/OverlayService$PetHost$Flags;->svc:Lcom/dsh/petframe/OverlayService;
+
+    invoke-static {v2}, Lcom/dsh/petframe/OverlayService;->access$900(Lcom/dsh/petframe/OverlayService;)Landroid/widget/FrameLayout;
+
+    move-result-object v2
+
+    if-eqz v1, :end
+
+    if-eqz v2, :end
+
+    invoke-interface {v1, v2, v0}, Landroid/view/WindowManager;->updateViewLayout(Landroid/view/View;Landroid/view/ViewGroup$LayoutParams;)V
+
+    :end
+    return-void
+.end method

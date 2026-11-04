@@ -1,0 +1,8 @@
+node_modules/
+*.jks
+*.keystore
+apk/*.apk
+apk/*.idsig
+.DS_Store
+*.log
+*.bak-*
